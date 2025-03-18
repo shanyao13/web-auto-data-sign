@@ -14,7 +14,7 @@ pip install selenium
 ```
 2、克隆仓库
 ```shell
-https://github.com/shanyao13/web-auto-data-sign.git
+git clone https://github.com/shanyao13/web-auto-data-sign.git
 cd web-auto-data-sign
 ```
 3、启动程序
@@ -26,5 +26,6 @@ python main.py
 - 数据标注网站需自行获取用户名密码等
 - 可根据不同场景，调整LLM提示词
 - 创建 constant文件夹，内部存储网站、用户等信息
+- 安装chrome driver插件
 # 许可协议
 MIT License
