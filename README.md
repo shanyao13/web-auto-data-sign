@@ -5,17 +5,17 @@
 - 调用deepseek接口，完成数据分析，并将分析后的数据按格式要求进行封装。
 - 实现自动化数据标注打分工作。
 # 安装&使用
-1、环境搭建
+1、克隆仓库
+```shell
+git clone https://github.com/shanyao13/web-auto-data-sign.git
+cd web-auto-data-sign
+```
+2、环境搭建
 ```shell
 python -m venv web-auto
 source web-auto/bin/activate  # Mac/Linux
 # web-auto\Scripts\activate  # Windows
 pip install selenium
-```
-2、克隆仓库
-```shell
-git clone https://github.com/shanyao13/web-auto-data-sign.git
-cd web-auto-data-sign
 ```
 3、启动程序
 ```shell
