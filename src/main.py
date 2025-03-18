@@ -3,20 +3,26 @@ from selenium import webdriver
 import requests
 
 # 1. 启动浏览器
+from constant.domainConfig import DOMAINS_IP, DOMAINS_API_IP, RATING_API_IP, USERNAME, PASSWORD, SUBJECT_CODE, DOMAIN
 from src.scoresFromDS import getScoresFromDS
 from src.strToJson import strToJson
 
 driver = webdriver.Chrome()
 
 # 2. 打开网页（确保 Selenium 能访问）
-driver.get("http://221.228.10.206:8002/domains")
+driver.get(DOMAINS_IP)
 print("启动浏览器")
 
 # 3. 设置 Cookie（网站可能需要先打开 URL，再设置 Cookie）
+# cookie = {
+#     'name': 'user',
+#     'value': f'{{"id":106,"username":{USERNAME},"password":{PASSWORD},"subject_code":{SUBJECT_CODE}}}',
+#     'domain': '221.228.10.206'
+# }
 cookie = {
     'name': 'user',
-    'value': '{"id":106,"username":"ObstetricsReproductiveMedicine","password":"zj6784","subject_code":"ObstetricsReproductiveMedicine"}',
-    'domain': '221.228.10.206'
+    'value': f'{{"id":106,"username":"{USERNAME}","password":"{PASSWORD}","subject_code":"{SUBJECT_CODE}"}}',
+    'domain': DOMAIN
 }
 driver.add_cookie(cookie)
 
@@ -33,8 +39,8 @@ for cookie in selenium_cookies:
 
 
 # 获取页面信息，包括域名domain和url，elevance/popularity/professionalism
-url = "http://221.228.10.206:8002/api/domains"
-for ipage in  range(70,90):
+url = DOMAINS_API_IP
+for ipage in range(36,38):
     data = {
         "page": ipage,
         "pageSize": 20
@@ -72,7 +78,7 @@ for ipage in  range(70,90):
     scores = getScoresFromDS(domains)
     modified_scores = strToJson(scores)
 
-    url_rating = "http://221.228.10.206:8002/api/ratings"
+    url_rating = RATING_API_IP
     for score_json in modified_scores:
         domain_id = score_json.get("id")  # 提取id
         score = score_json.get("score")  # 提取score

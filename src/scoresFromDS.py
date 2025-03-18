@@ -1,4 +1,3 @@
-import null as null
 import requests
 import json
 
