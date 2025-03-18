@@ -25,5 +25,6 @@ python main.py
 - LLM api如deepseek、open ai等，需自行创建api key
 - 数据标注网站需自行获取用户名密码等
 - 可根据不同场景，调整LLM提示词
+- 创建 constant文件夹，内部存储网站、用户等信息
 # 许可协议
 MIT License
