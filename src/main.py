@@ -1,12 +1,11 @@
 from time import sleep
 from selenium import webdriver
 import requests
-
-# 1. 启动浏览器
 from constant.domainConfig import DOMAINS_IP, DOMAINS_API_IP, RATING_API_IP, USERNAME, PASSWORD, SUBJECT_CODE, DOMAIN
 from src.scoresFromDS import getScoresFromDS
 from src.strToJson import strToJson
 
+# 1. 启动浏览器
 driver = webdriver.Chrome()
 
 # 2. 打开网页（确保 Selenium 能访问）
@@ -14,11 +13,6 @@ driver.get(DOMAINS_IP)
 print("启动浏览器")
 
 # 3. 设置 Cookie（网站可能需要先打开 URL，再设置 Cookie）
-# cookie = {
-#     'name': 'user',
-#     'value': f'{{"id":106,"username":{USERNAME},"password":{PASSWORD},"subject_code":{SUBJECT_CODE}}}',
-#     'domain': '221.228.10.206'
-# }
 cookie = {
     'name': 'user',
     'value': f'{{"id":106,"username":"{USERNAME}","password":"{PASSWORD}","subject_code":"{SUBJECT_CODE}"}}',
@@ -33,14 +27,12 @@ sleep(1)
 # # 5. 获取 Selenium 中的 Cookies，并转换为 requests 格式
 selenium_cookies = driver.get_cookies()
 session = requests.Session()
-#
 for cookie in selenium_cookies:
     session.cookies.set(cookie['name'], cookie['value'])
 
-
 # 获取页面信息，包括域名domain和url，elevance/popularity/professionalism
 url = DOMAINS_API_IP
-for ipage in range(36,38):
+for ipage in range(100,101):
     data = {
         "page": ipage,
         "pageSize": 20
@@ -50,12 +42,9 @@ for ipage in range(36,38):
     print("状态码:", response.status_code)
     print("响应内容:", response.text)
 
-    # for webInfo in response.text:
-    #     des = get_website_description(webInfo["url"])
     response_data = response.json()
     print(response_data)
-    #
-    #
+
     domains = response_data["domains"]
     print(domains)
     # test_url = domain["url"]
